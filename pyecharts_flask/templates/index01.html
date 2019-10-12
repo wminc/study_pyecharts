@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板渲染</title>
+
+    <script type="application/javascript" src="/static/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <style>
+        body{
+            padding: 0px;
+            margin: 0px;
+            background-color: #DEE1E6;
+        }
+        .content{
+            width:800px;
+            padding-top: 50px;
+            height:550px;
+            margin:50px auto;
+            background-color: aliceblue;
+            text-align: center;
+        }
+        #bar{
+            margin-top: 100px;
+            margin:0px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div id="bar" style="width:700px; height:500px;"></div>
+        <script>
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('bar'));
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption({{ bar_data | safe }});
+        </script>
+    </div>
+</body>
+</html>

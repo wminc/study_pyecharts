@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax请求</title>
+    <script type="application/javascript" src="/static/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <style>
+        body{
+            padding: 0px;
+            margin: 0px;
+            background-color: #DEE1E6;
+        }
+        .content{
+            width:800px;
+            padding-top: 50px;
+            height:550px;
+            margin:50px auto;
+            background-color: aliceblue;
+            text-align: center;
+        }
+        #bar{
+            margin-top: 100px;
+            margin:0px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div id="bar" style="width:700px; height:500px;"></div>
+        <script>
+        var chart = echarts.init(document.getElementById('bar'), 'white', {renderer: 'canvas'});
+        var old_data = [];
+        $(
+            function () {
+                fetchData(chart);
+                setInterval(getDynamicData, 2000);
+            }
+        );
+
+        function fetchData() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:5000/show_demo03/",
+                dataType: "json",
+                success: function (result) {
+                    chart.setOption(result);
+                    old_data = chart.getOption().series[0].data;
+                }
+            });
+        }
+
+        function getDynamicData() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:5000/demo03 DynamicData",
+                dataType: "json",
+                success: function (result) {
+                    old_data.push([result.name, result.value]);
+                    chart.setOption({
+                        series: [{data: old_data}]
+                    });
+                }
+            });
+        }
+
+    </script>
+    </div>
+</body>
+</html>

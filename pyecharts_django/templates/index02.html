@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax请求</title>
+    <script type="application/javascript" src="/static/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <style>
+        body{
+            padding: 0px;
+            margin: 0px;
+            background-color: #DEE1E6;
+        }
+        .content{
+            width:800px;
+            padding-top: 50px;
+            height:550px;
+            margin:50px auto;
+            background-color: aliceblue;
+            text-align: center;
+        }
+        #bar{
+            margin-top: 100px;
+            margin:0px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div id="bar" style="width:700px; height:500px;"></div>
+        <script>
+            var chart = echarts.init(document.getElementById('bar'));
+
+            $(
+                function () {
+                    fetchData(chart);
+                    //实现定时更新
+                    setInterval(fetchData, 2000);
+                }
+            );
+
+            function fetchData() {
+                // $.get(
+                //     "/show_demo02/",
+                //     function(result){
+                //         chart.setOption(result.data);
+                //     },
+                //     "json"
+                // )
+                $.ajax({
+                    type: "GET",
+                    url: "http://127.0.0.1:8000/show_demo02/",
+                    dataType: 'json',
+                    success: function (result) {
+                        chart.setOption(result.data);
+                    }
+                });
+            }
+        </script>
+    </div>
+</body>
+</html>

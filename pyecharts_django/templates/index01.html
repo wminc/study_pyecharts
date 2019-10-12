@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板渲染</title>
+
+    <script type="application/javascript" src="/static/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <!--{% for jsfile_name in script_list %}-->
+    <!--<script src="{{host}}/{{jsfile_name}}.js"></script>-->
+    <!--{% endfor %}-->
+    <style>
+        body{
+            padding: 0px;
+            margin: 0px;
+            background-color: #DEE1E6;
+        }
+        .content{
+            width:1000px;
+            padding-top: 50px;
+            height:550px;
+            margin:50px auto;
+            background-color: aliceblue;
+            text-align: center;
+        }
+        #bar{
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div id="bar">{{data|safe}}</div>
+    </div>
+</body>
+</html>
